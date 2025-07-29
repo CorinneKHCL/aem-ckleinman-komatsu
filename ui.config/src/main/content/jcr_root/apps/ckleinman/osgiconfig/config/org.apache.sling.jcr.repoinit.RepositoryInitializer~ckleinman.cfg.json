@@ -1,0 +1,7 @@
+{
+    "scripts": [
+        "create path (sling:OrderedFolder) /content/dam/ckleinman",
+        "create path (nt:unstructured) /content/dam/ckleinman/jcr:content",
+        "set properties on /content/dam/ckleinman/jcr:content\n  set cq:conf{String} to /conf/ckleinman\n  set jcr:title{String} to \"CKleinman Komatsu Questions\"\nend"
+    ]
+}

@@ -1,0 +1,11 @@
+.cmp-komatsu-form {
+    background-color: lightgray; // generally I would use variable name based on brand colors 
+    color: black;
+
+    // also I haven't added any button styling as I'm assuming the requirements are taken care of in the appropriate file
+    // I can also add that as necesessary
+    @media (max-width: 768px) {
+        background-color: black;
+        color: white;
+    }
+}

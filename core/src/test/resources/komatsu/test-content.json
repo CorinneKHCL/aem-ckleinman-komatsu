@@ -1,0 +1,9 @@
+{
+  "jcr:primaryType": "cq:Page",
+  "jcr:content": {
+    "jcr:primaryType": "cq:PageContent",
+    "sling:resourceType": "ckleinman/components/komatsu",
+    "text": "Test Search",
+    "button": "Submit"
+  }
+}

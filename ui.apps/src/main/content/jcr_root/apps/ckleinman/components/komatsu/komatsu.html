@@ -1,0 +1,13 @@
+<div data-sly-use.model="com.ckleinman.komatsu.core.models.Komatsu"
+    data-sly-test.empty="${model.text && model.button}"
+    data-sly-use.component="com.adobe.cq.wcm.core.components.models.Component"
+    id="${component.id}"
+    class="${model.className}">
+    <form class="cmp-komatsu-form-search">
+        <label for="searchTerm">${model.text}</label>
+        <input type="text" id="searchTerm" name="searchTerm" />
+        <button type="submit">${model.button}</button>
+      </form>
+      <div class="cmp-komatsu-form-search-results"></div>
+</sly>
+<!-- if empty then display empty template -->

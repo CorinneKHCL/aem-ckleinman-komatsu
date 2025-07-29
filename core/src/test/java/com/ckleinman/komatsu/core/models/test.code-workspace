@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../../../../../Downloads/Unknown"
+		},
+		{
+			"path": "../../../../../../../../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "aem-ckleinman-komatsu",
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
