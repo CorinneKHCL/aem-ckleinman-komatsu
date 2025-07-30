@@ -22,16 +22,15 @@ class KomatsuImplTest {
 
     @BeforeEach
     void setup() {
-        context.addModelsForClasses(KomatsuImpl.class);
+        context.addModelsForClasses(Komatsu.class, KomatsuImpl.class);
 
-        Resource resource = context.create().resource("/content/mypage/komatsu",
-            "sling:resourceType", KomatsuImpl.RESOURCE_TYPE,
-            "text", "Search AEM Pages",
-            "button", "Submit Search");
-            
-        model = resource.adaptTo(Komatsu.class);
+        context.load().json("/komatsu/test-content.json", "/content/mypage");
 
-        System.out.println("Model adapted: " + model);
+        // Get the jcr:content node
+        Resource resource = context.resourceResolver().getResource("/content/mypage/jcr:content");
+
+        // Adapt to model
+        model = resource.adaptTo(KomatsuImpl.class);
     }
 
     // I'm struggling to get the code to work using either this method or using the json test file to mock but this is what I would od

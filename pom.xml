@@ -1054,7 +1054,7 @@ Bundle-DocURL:
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>5.9.3</version>  <!-- or match your project version -->
+        <version>5.9.3</version> 
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -1092,7 +1092,6 @@ Bundle-DocURL:
         </exclusions>
 
       </dependency>
-
       <dependency>
 
         <groupId>org.apache.sling</groupId>

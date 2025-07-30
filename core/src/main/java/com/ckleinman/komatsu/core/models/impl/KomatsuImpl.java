@@ -1,6 +1,7 @@
 package com.ckleinman.komatsu.core.models.impl;
 
 import com.ckleinman.komatsu.core.models.Komatsu;
+import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 
 import org.apache.sling.api.resource.Resource;
@@ -9,7 +10,7 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 @Model(
     adaptables = Resource.class,
-    adapters = Komatsu.class,
+    adapters = {Komatsu.class, ComponentExporter.class},
     resourceType = KomatsuImpl.RESOURCE_TYPE
 )
 public class KomatsuImpl extends AbstractComponentImpl implements Komatsu {

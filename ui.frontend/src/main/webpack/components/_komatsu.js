@@ -18,8 +18,8 @@ document.getElementsByClassName('.cmp-komatsu-form').addEventListener('submit', 
                 const pageInfo = document.createElement("div");
                 pageInfo.innerHTML = `
                     <h2>${element.title}</h2>
-                    <0>${element.description}</p>
-                    <img src='${element.image}' alt="" />
+                    <p>${element.description}</p>
+                    <img src='${element.image}' alt="" /> 
                     <p>${element.modifiedDate}</p>
                 `;
                 searchResults.append(pageInfo);
