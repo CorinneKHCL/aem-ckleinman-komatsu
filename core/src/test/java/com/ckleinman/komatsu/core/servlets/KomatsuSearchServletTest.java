@@ -53,14 +53,15 @@ class KomatsuSearchServletTest {
 
     @Test
     void doGetSearchNull(AemContext context) throws ServletException, IOException {
-  
+
         fixture.doGet(request, response);
 
         assertEquals("[]", response.getOutputAsString());
     }
 
     @Test
-    void doGetSearchEmpty(AemContext context) throws ServletException, IOException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    void doGetSearchEmpty(AemContext context) throws ServletException, IOException, IllegalArgumentException,
+            IllegalAccessException, NoSuchFieldException, SecurityException {
         request.setParameterMap(Map.of("searchTerm", "sample"));
         mockQueries();
         fixture.doGet(request, response);
@@ -68,18 +69,19 @@ class KomatsuSearchServletTest {
         assertEquals("[]", response.getOutputAsString());
     }
 
-
     @Test
-    void doGetSearchText(AemContext context) throws ServletException, IOException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, RepositoryException {
+    void doGetSearchText(AemContext context) throws ServletException, IOException, IllegalArgumentException,
+            IllegalAccessException, NoSuchFieldException, SecurityException, RepositoryException {
         request.setParameterMap(Map.of("searchTerm", "sample"));
 
         mockQueries();
 
         context.create().page("/content/sample-page", "/apps/sample-template");
         Resource contentResource = context.resourceResolver().getResource("/content/sample-page/jcr:content");
+        Resource pageResource = context.resourceResolver().getResource("/content/sample-page");
 
         when(searchResult.getHits()).thenReturn(List.of(hit));
-        when(hit.getResource()).thenReturn(contentResource);
+        when(hit.getResource()).thenReturn(pageResource);
 
         Page page = context.pageManager().getPage("/content/sample-page");
         assertNotNull(page);
@@ -94,12 +96,14 @@ class KomatsuSearchServletTest {
         fixture.doGet(request, response);
 
         // TODO: Update once session is not null will page information from above
-        assertEquals("[]", response.getOutputAsString());
+        assertEquals("[{\"title\":\"Sample Title\",\"description\":\"Sample Description\",\"image\":\"/content/dam/sample.jpg\",\"modifiedDate\":\"\"}]", response.getOutputAsString());
     }
 
-    private void mockQueries() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-       
-        session = mock(Session.class); // I'm struggling to mock the session and it keeps returning null no matter what I try
+    private void mockQueries()
+            throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+
+        session = mock(Session.class); // I'm struggling to mock the session and it keeps returning null no matter what
+                                       // I try
         queryBuilder = mock(QueryBuilder.class);
         query = mock(Query.class);
         searchResult = mock(SearchResult.class);
@@ -108,6 +112,15 @@ class KomatsuSearchServletTest {
         java.lang.reflect.Field field = KomatsuSearchServlet.class.getDeclaredField("queryBuilder");
         field.setAccessible(true);
         field.set(fixture, queryBuilder);
+
+        ResourceResolver resolver = context.resourceResolver();
+        ResourceResolver spyResolver = spy(resolver);
+        when(spyResolver.adaptTo(Session.class)).thenReturn(session);
+
+        MockSlingHttpServletRequest request = context.request();
+        java.lang.reflect.Field resolverField = MockSlingHttpServletRequest.class.getDeclaredField("resourceResolver");
+        resolverField.setAccessible(true);
+        resolverField.set(request, spyResolver);
 
         when(queryBuilder.createQuery(any(PredicateGroup.class), any(Session.class)))
                 .thenReturn(query);
